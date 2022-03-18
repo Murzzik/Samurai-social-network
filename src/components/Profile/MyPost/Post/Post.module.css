@@ -1,3 +1,7 @@
+.item {
+    padding-top: 10px;
+}
+
 .item img {
     width: 5%;
     border-radius: 50%;
