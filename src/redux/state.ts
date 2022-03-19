@@ -7,6 +7,7 @@ type MessagesType = {
 type DialogsType = {
     id: string
     name: string
+    avatar: string
 }
 type PostsType = {
     id: string
@@ -34,12 +35,12 @@ let state: RootStateType = {
     },
     dialogsPage: {
         dialogs: [
-            {id: v1(), name: 'Dimych'},
-            {id: v1(), name: 'Andrey'},
-            {id: v1(), name: 'Sveta'},
-            {id: v1(), name: 'Sasha'},
-            {id: v1(), name: 'Viktor'},
-            {id: v1(), name: 'Valera'}
+            {id: v1(), name: 'Dimych', avatar: ''},
+            {id: v1(), name: 'Andrey', avatar: ''},
+            {id: v1(), name: 'Sveta', avatar: ''},
+            {id: v1(), name: 'Sasha', avatar: ''},
+            {id: v1(), name: 'Viktor', avatar: ''},
+            {id: v1(), name: 'Valera', avatar: ''}
         ],
         messages: [
             {id: v1(), messages: 'Hi'},

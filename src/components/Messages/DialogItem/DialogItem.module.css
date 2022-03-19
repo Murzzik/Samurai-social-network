@@ -1,0 +1,23 @@
+.dialog {
+    padding-top: 5px;
+}
+
+.dialog .active {
+    color: #f4f4f4;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.dialog a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.dialog img {
+    width: 25%;
+}
+
+.userAvatar {
+    display: flex;
+    align-items: center;
+}
