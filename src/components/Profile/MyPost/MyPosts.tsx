@@ -6,7 +6,7 @@ export type PostsType = {
     posts: Array<MyPostsType>
 }
 
-type MyPostsType = {
+export type MyPostsType = {
     id: string
     message: string
     likesCount: number

@@ -1,11 +1,12 @@
 import React from 'react';
-import s from './Profile.module.css'
-import MyPosts, {PostsType} from "./MyPost/MyPosts";
+import MyPosts, {MyPostsType, PostsType} from "./MyPost/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {v1} from "uuid";
 
+type ProfileType = {
+    posts: MyPostsType[]
+}
 
-const Profile: React.FC<PostsType> = (props) => {
+const Profile: React.FC<ProfileType> = (props) => {
 
     return (
         <div>
