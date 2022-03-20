@@ -3,7 +3,7 @@ import './App.css';
 import Header from "./components/Header/Header";
 import Nav from "./components/Navbar/Nav"
 import Profile from "./components/Profile/Profile";
-import Dialogs, {DialogsPageType} from "./components/Messages/Dialogs";
+import Dialogs from "./components/Messages/Dialogs";
 import News from './components/News/News'
 import Settings from './components/Settings/Settings'
 import Music from "./components/Music/Music";
@@ -12,6 +12,7 @@ import {RootStateType} from "./redux/state";
 
 type AppPropsType = {
     state: RootStateType
+    addPost: (postMessage: string) => void
 }
 
 const App: React.FC<AppPropsType> = (props) => {
@@ -23,7 +24,7 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Nav/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path={'/profile'} element={<Profile posts={props.state.profilePage.posts}/>}/>
+                        <Route path={'/profile'} element={<Profile posts={props.state.profilePage.posts} addPost={props.addPost}/>}/>
                         <Route path={'/messages/*'} element={<Dialogs state={props.state}/>}/>
                         <Route path={'/news'} element={<News/>}/>
                         <Route path={'/music'} element={<Music/>}/>
