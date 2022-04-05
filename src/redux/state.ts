@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {rerenderEntireTree} from "../render";
+declare const window: any
 
 type MessagesType = {
     id: string
@@ -18,22 +18,38 @@ type PostsType = {
 type DialogsPageType = {
     messages: Array<MessagesType>
     dialogs: Array<DialogsType>
+    newMessageText: string
 }
 type ProfilePageType = {
     posts: Array<PostsType>
+    newPostText: string
 }
-
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
+
 }
 
-let state: RootStateType = {
+type AddPostAT = {
+    type: 'ADD-POST'
+}
+type UpdateNewPostText = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+
+export type ActionType =
+    AddPostAT
+    | UpdateNewPostText
+
+let store = {
+    _state: {
     profilePage: {
         posts: [
             {id: v1(), message: 'Hi, how are you?', likesCount: 23},
             {id: v1(), message: "It's my first post?", likesCount: 0}
-        ]
+        ],
+        newPostText: 'MySocialNetWork',
     },
     dialogsPage: {
         dialogs: [
@@ -48,20 +64,42 @@ let state: RootStateType = {
             {id: v1(), messages: 'Hi'},
             {id: v1(), messages: 'How you doin?'},
             {id: v1(), messages: 'Yo'},
-        ]
+        ],
+        newMessageText: 'Say something'
     },
-}
 
+},
+    getState() {
+        return this._state
+    },
+    _callSubscriber(_state: RootStateType)  {
+        console.log('State')
+    },
+    updateNewMessageText(newMessageText: string) {
+        this._state.dialogsPage.newMessageText = newMessageText;
+        this._callSubscriber(store._state);
+    },
+    dispatch(action: ActionType) {
+        if(action.type === 'ADD-POST') {
+            const newPost = {
+                id: v1(),
+                message: store._state.profilePage.newPostText,
+                likesCount: 0
+            }
+            this._state.profilePage.posts.push(newPost);
 
-
-export let addPost = (postMessage: string) => {
-    let newPost = {
-        id: v1(),
-        message: postMessage,
-        likesCount: 0
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber(store._state);
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(store._state);
+        }
+    },
+    subscribe(observer: (state: RootStateType) => void) {
+        this._callSubscriber = observer
     }
-    state.profilePage.posts.push(newPost);
-    rerenderEntireTree(state);
+
 }
 
-export default state
+export default store
+window.store = store

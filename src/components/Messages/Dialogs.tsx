@@ -7,15 +7,23 @@ import {RootStateType} from "../../redux/state";
 
 export type DialogsPageType = {
     state: RootStateType
+    newMessageText: string
+    updateNewMessageText: (newDialogsText: string) => void
 }
 
 const Dialogs: React.FC<DialogsPageType> = (props) => {
 
-    let messageText = React.useRef<HTMLTextAreaElement | null>(null)
+    const messageText = React.useRef<HTMLTextAreaElement | null>(null)
 
-    let addMessage = () => {
-        let message = messageText.current?.value
+    const addMessage = () => {
+        const message = messageText.current?.value
         alert(message)
+    }
+
+    const onMessageChange = () => {
+        const message = messageText.current!.value
+        props.updateNewMessageText(message)
+        console.log(message)
     }
 
     let dialogsElements = props.state.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} avatar={d.avatar}/>)
@@ -28,7 +36,7 @@ const Dialogs: React.FC<DialogsPageType> = (props) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <textarea ref={messageText}></textarea>
+                <textarea ref={messageText} value={props.newMessageText} onChange={onMessageChange}></textarea>
                 <button onClick={addMessage}>Add message</button>
             </div>
         </div>

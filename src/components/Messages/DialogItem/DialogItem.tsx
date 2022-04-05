@@ -10,12 +10,14 @@ type DialogItemType = {
 }
 
 const DialogItem = (props: DialogItemType) => {
-    let path = '/messages/' + props.id
+    const path = '/messages/' + props.id
 
     return (
         <div className={s.dialog}>
             <NavLink to={'/messages/' + props.id}
-                     className={(navData) => (navData.isActive ? s.active : '') + ' ' + s.userAvatar}><img src={avatar} alt="avatar"/>{props.name}
+                     className={(navData) => (navData.isActive ? s.active : '') + ' ' + s.userAvatar}>
+                <img src={avatar} alt="avatar"/>
+                {props.name}
             </NavLink>
         </div>
     )
