@@ -77,26 +77,26 @@ export const store = {
     _state: {
         profilePage: {
             posts: [
-                { id: v1(), message: 'Hi, how are you?', likesCount: 23 },
-                { id: v1(), message: 'It\'s my first post?', likesCount: 0 },
+                {id: v1(), message: 'Hi, how are you?', likesCount: 23},
+                {id: v1(), message: 'It\'s my first post?', likesCount: 0},
             ],
             newPostText: 'MySocialNetWork',
         },
         dialogsPage: {
             dialogs: [
-                { id: v1(), name: 'Dimych', avatar: '' },
-                { id: v1(), name: 'Andrey', avatar: '' },
-                { id: v1(), name: 'Sveta', avatar: '' },
-                { id: v1(), name: 'Sasha', avatar: '' },
-                { id: v1(), name: 'Viktor', avatar: '' },
-                { id: v1(), name: 'Valera', avatar: '' },
+                {id: v1(), name: 'Dimych', avatar: ''},
+                {id: v1(), name: 'Andrey', avatar: ''},
+                {id: v1(), name: 'Sveta', avatar: ''},
+                {id: v1(), name: 'Sasha', avatar: ''},
+                {id: v1(), name: 'Viktor', avatar: ''},
+                {id: v1(), name: 'Valera', avatar: ''},
             ],
             messages: [
-                { id: v1(), messages: 'Hi' },
-                { id: v1(), messages: 'How you doin?' },
-                { id: v1(), messages: 'Yo' },
+                {id: v1(), messages: 'Hi'},
+                {id: v1(), messages: 'How you doin?'},
+                {id: v1(), messages: 'Yo'},
             ],
-            newMessageText: 'Say something',
+            newMessageText: '',
         },
 
     },
@@ -127,7 +127,7 @@ export const store = {
                 messages: store._state.dialogsPage.newMessageText,
             };
             this._state.dialogsPage.messages.push(messageText);
-            this._state.profilePage.newPostText = '';
+            this._state.dialogsPage.newMessageText = '';
             this._callSubscriber(store._state);
 
         } else if(action.type === UPDATE_NEW_POST_TEXT) {
