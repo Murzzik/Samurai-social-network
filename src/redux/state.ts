@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import { renderTree } from '../render';
 
 type MessagesType = {
     id: string
@@ -9,7 +10,7 @@ type DialogsType = {
     name: string
     avatar: string
 }
-type PostsType = {
+type PostType = {
     id: string
     message: string
     likesCount: number
@@ -19,7 +20,7 @@ type DialogsPageType = {
     dialogs: DialogsType[]
 }
 type ProfilePageType = {
-    posts: Array<PostsType>
+    posts: Array<PostType>
 }
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -48,6 +49,16 @@ let state: RootStateType = {
             {id: v1(), messages: 'Yo'},
         ]
     },
+}
+
+export const addPost = (postText: string) => {
+    const newPost: PostType = {
+        id: v1(),
+        message: postText,
+        likesCount: 0
+    }
+    state.profilePage.posts.push(newPost)
+    renderTree(state)
 }
 
 export default state

@@ -6,12 +6,12 @@ type MessageType = {
     message: string
 }
 
-const Message = (props: MessageType) => {
+const Message: React.FC<MessageType> = ({ message }) => {
     return (
         <div className={s.chatWindow}>
             <img src={avatar} alt="avatar" />
             <div className={s.message}>
-                {props.message}
+                {message}
             </div>
         </div>
     );

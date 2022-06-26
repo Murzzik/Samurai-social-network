@@ -1,14 +1,13 @@
 import React from 'react';
 import s from '../Profile.module.css';
-import cn from './ProfileInfo.module.css'
-import main from "../../../images/main-img.jpg";
-import MyPosts from "../MyPost/MyPosts";
+import cn from './ProfileInfo.module.css';
+import main from '../../../images/main-img.jpg';
 
 const ProfileInfo = () => {
     return (
         <div className={s.content}>
             <img src={main} alt=""/>
-            <div className={cn.descriptionBlock}>ava + decription</div>
+            <div className={cn.descriptionBlock}>ava + description</div>
         </div>
     );
 };
