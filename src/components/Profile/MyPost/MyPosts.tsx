@@ -1,35 +1,32 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+import { PostType } from '../../../redux/state';
 
-export type PostsType = {
-    posts: MyPostsType[]
-    addPost: (postText: string) => void
+type PostsType = {
+    posts: PostType[]
+    addPost: () => void
+    newPostText: string
+    changeNewTextCallback: (newPostText: string) => void
 }
 
-export type MyPostsType = {
-    id: string
-    message: string
-    likesCount: number
-}
-
-const MyPosts: React.FC<PostsType> = ({ posts , addPost}) => {
+const MyPosts: React.FC<PostsType> = ({posts, addPost, newPostText, changeNewTextCallback}) => {
     const postsElements = posts.map((post, i) => <Post key={i} message={post.message} likesCount={post.likesCount} />);
 
-    const postMessageRef = React.useRef<HTMLTextAreaElement | null>(null)
-
     const addNewPost = () => {
-        const postText = postMessageRef.current!.value
-        addPost(postText)
-        postMessageRef.current!.value = ''
-    }
+        addPost();
+    };
+
+    const onPostTextChange= (e: ChangeEvent<HTMLTextAreaElement>) => {
+        changeNewTextCallback(e.currentTarget.value)
+    };
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
                 <div className={s.addMessageForm}>
-                    <textarea ref={postMessageRef}></textarea>
+                    <textarea onChange={onPostTextChange} value={newPostText} />
                     <button onClick={addNewPost}>Add post</button>
                 </div>
             </div>

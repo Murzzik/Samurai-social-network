@@ -1,26 +1,27 @@
-import {v1} from "uuid";
-import { renderTree } from '../render';
+import { v1 } from 'uuid';
+import { renderTree } from '../index';
 
-type MessagesType = {
+export type MessagesType = {
     id: string
-    messages: string
+    message: string
 }
-type DialogsType = {
+export type DialogsType = {
     id: string
     name: string
     avatar: string
 }
-type PostType = {
+export type PostType = {
     id: string
     message: string
     likesCount: number
 }
-type DialogsPageType = {
+export type DialogsPageType = {
     messages: MessagesType[]
     dialogs: DialogsType[]
 }
-type ProfilePageType = {
-    posts: Array<PostType>
+export type ProfilePageType = {
+    posts: PostType[]
+    newPostText: string
 }
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -31,8 +32,9 @@ let state: RootStateType = {
     profilePage: {
         posts: [
             {id: v1(), message: 'Hi, how are you?', likesCount: 23},
-            {id: v1(), message: "It's my first post?", likesCount: 0}
-        ]
+            {id: v1(), message: 'It\'s my first post?', likesCount: 0},
+        ],
+        newPostText: '',
     },
     dialogsPage: {
         dialogs: [
@@ -41,24 +43,38 @@ let state: RootStateType = {
             {id: v1(), name: 'Sveta', avatar: ''},
             {id: v1(), name: 'Sasha', avatar: ''},
             {id: v1(), name: 'Viktor', avatar: ''},
-            {id: v1(), name: 'Valera', avatar: ''}
+            {id: v1(), name: 'Valera', avatar: ''},
         ],
         messages: [
-            {id: v1(), messages: 'Hi'},
-            {id: v1(), messages: 'How you doin?'},
-            {id: v1(), messages: 'Yo'},
-        ]
+            {id: v1(), message: 'Hi'},
+            {id: v1(), message: 'How you doin?'},
+            {id: v1(), message: 'Yo'},
+        ],
     },
-}
+};
 
-export const addPost = (postText: string) => {
+let rerenderEntireTree = (state: RootStateType) => {
+
+};
+
+export const addPost = () => {
     const newPost: PostType = {
         id: v1(),
-        message: postText,
-        likesCount: 0
-    }
-    state.profilePage.posts.push(newPost)
-    renderTree(state)
-}
+        message: state.profilePage.newPostText,
+        likesCount: 0,
+    };
+    state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
+    rerenderEntireTree(state);
+};
 
-export default state
+export const changeText = (newText: string) => {
+    state.profilePage.newPostText = newText;
+    rerenderEntireTree(state);
+};
+
+export const subscribe = (observer: (state: RootStateType) => void) => {
+    rerenderEntireTree = observer;
+};
+
+export default state;

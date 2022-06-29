@@ -1,19 +1,21 @@
 import React from 'react';
-import MyPosts, {MyPostsType, PostsType} from "./MyPost/MyPosts";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import { addPost } from '../../redux/state';
+import MyPosts from './MyPost/MyPosts';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
+import { PostType } from '../../redux/state';
 
 type ProfileType = {
-    posts: MyPostsType[]
-    addPost: (postText: string) => void
+    posts: PostType[]
+    addPost: () => void
+    newPostText: string
+    changeNewTextCallback: (newPostText: string) => void
 }
 
-const Profile: React.FC<ProfileType> = ( {posts, addPost} ) => {
+const Profile: React.FC<ProfileType> = ({posts, addPost, newPostText, changeNewTextCallback}) => {
 
     return (
         <div>
-            <ProfileInfo/>
-            <MyPosts posts={posts} addPost={addPost}/>
+            <ProfileInfo />
+            <MyPosts posts={posts} addPost={addPost} newPostText={newPostText} changeNewTextCallback={changeNewTextCallback} />
         </div>
     );
 };
