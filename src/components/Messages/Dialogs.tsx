@@ -13,7 +13,7 @@ const Dialogs: React.FC<DialogsPageType> = ({ state }) => {
     const dialogsElements = state.dialogsPage.dialogs.map((dialog, i) =>
         <DialogItem key={i} name={dialog.name} id={dialog.id} avatar={dialog.avatar} />);
     const messagesElements = state.dialogsPage.messages.map((message, i) =>
-        <Message key={i} message={message.message} id={message.id}/>);
+        <Message key={i} message={message.message} id={message.id} />);
 
     return (
         <div className={s.dialogs}>

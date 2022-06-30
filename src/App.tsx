@@ -8,15 +8,15 @@ import News from './components/News/News';
 import Settings from './components/Settings/Settings';
 import Music from './components/Music/Music';
 import { Route, Routes } from 'react-router-dom';
-import { RootStateType } from './redux/state';
+import { StoreType } from './redux/state';
 
 type AppPropsType = {
-    state: RootStateType
-    addPost: () => void
-    changeText: (newPostText: string) => void
+    store: StoreType
 }
 
-const App: React.FC<AppPropsType> = ({state, addPost, changeText}) => {
+const App: React.FC<AppPropsType> = ({ store }) => {
+
+    const state = store.getState();
 
     return (
         <div className="app-wrapper">
@@ -27,9 +27,8 @@ const App: React.FC<AppPropsType> = ({state, addPost, changeText}) => {
                     <Route path={'/profile'} element={
                         <Profile
                             posts={state.profilePage.posts}
-                            addPost={addPost}
                             newPostText={state.profilePage.newPostText}
-                            changeNewTextCallback={changeText}/>
+                            dispatch={store.dispatch.bind(store)} />
                     } />
                     <Route path={'/messages/*'} element={<Dialogs state={state} />} />
                     <Route path={'/news'} element={<News />} />
