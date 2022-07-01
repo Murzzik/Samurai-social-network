@@ -14,7 +14,7 @@ type AppPropsType = {
     store: StoreType
 }
 
-const App: React.FC<AppPropsType> = ({ store }) => {
+const App: React.FC<AppPropsType> = ({store}) => {
 
     const state = store.getState();
 
@@ -30,7 +30,9 @@ const App: React.FC<AppPropsType> = ({ store }) => {
                             newPostText={state.profilePage.newPostText}
                             dispatch={store.dispatch.bind(store)} />
                     } />
-                    <Route path={'/messages/*'} element={<Dialogs state={state} />} />
+                    <Route path={'/messages/*'} element={
+                        <Dialogs store={store} />
+                    } />
                     <Route path={'/news'} element={<News />} />
                     <Route path={'/music'} element={<Music />} />
                     <Route path={'/settings'} element={<Settings />} />

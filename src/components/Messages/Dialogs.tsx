@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import { RootStateType } from '../../redux/state';
+import { ActionsTypes, addMessageAC, RootStateType, StoreType, updateNewMessageTextAC } from '../../redux/state';
 
 export type DialogsPageType = {
-    state: RootStateType
+    store: StoreType
+
 }
 
-const Dialogs: React.FC<DialogsPageType> = ({ state }) => {
+const Dialogs: React.FC<DialogsPageType> = ({ store}) => {
 
-    const dialogsElements = state.dialogsPage.dialogs.map((dialog, i) =>
+    const state = store.getState().dialogsPage
+
+    const dialogsElements = state.dialogs.map((dialog, i) =>
         <DialogItem key={i} name={dialog.name} id={dialog.id} avatar={dialog.avatar} />);
-    const messagesElements = state.dialogsPage.messages.map((message, i) =>
+    const messagesElements = state.messages.map((message, i) =>
         <Message key={i} message={message.message} id={message.id} />);
+    const newTextMessage = state.newMessageText
+
+    const addNewMessage = () => {
+        store.dispatch(addMessageAC(newTextMessage))
+    }
+
+    const onMessageTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const newMessageText = e.currentTarget.value
+        store.dispatch(updateNewMessageTextAC(newMessageText))
+    }
 
     return (
         <div className={s.dialogs}>
@@ -22,6 +35,10 @@ const Dialogs: React.FC<DialogsPageType> = ({ state }) => {
             </div>
             <div className={s.messages}>
                 {messagesElements}
+                <div className={s.addMessageForm}>
+                    <textarea onChange={onMessageTextChange} value={newTextMessage}/>
+                    <button onClick={addNewMessage}>Add post</button>
+                </div>
             </div>
         </div>
     );
