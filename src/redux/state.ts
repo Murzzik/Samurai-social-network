@@ -1,5 +1,7 @@
 import { v1 } from 'uuid';
 import { renderTree } from '../index';
+import { profileReducer } from './profile-reducer';
+import { dialogsReducer } from './dialogs-reducer';
 
 export type MessagesType = {
     id: string
@@ -109,30 +111,9 @@ const store: StoreType = {
         this._callSubscriber = observer;
     },
     dispatch(action: any) {
-        if(action.type === ADD_POST) {
-            const newPost: PostType = {
-                id: v1(),
-                message: action.postText,
-                likesCount: 0,
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state);
-        } else if(action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state);
-        } else if(action.type === ADD_MESSAGE) {
-            this._state.dialogsPage.newMessageText = '';
-            const newMessage: MessagesType = {
-                id: v1(),
-                message: action.messageText,
-            };
-            this._state.dialogsPage.messages.push(newMessage);
-            this._callSubscriber(this._state);
-        } else if(action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogsPage.newMessageText = action.newMessageText;
-            this._callSubscriber(this._state);
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage =  dialogsReducer(this._state.dialogsPage, action);
+        this._callSubscriber(this._state);
     },
 };
 
