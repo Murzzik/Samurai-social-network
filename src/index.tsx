@@ -15,8 +15,6 @@ export const renderTree = () => {
     );
 };
 
-
-
 renderTree();
 store.subscribe(renderTree);
 

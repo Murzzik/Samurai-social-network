@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import avatar from '../../../images/user-avatar.png';
 import { DialogsType } from '../../../redux/store';
 
-const DialogItem: React.FC<DialogsType> = ({ name}) => {
+const DialogItem: React.FC<DialogsType> = ({name}) => {
     const navClassName = (navData: any) => (navData.isActive ? s.active : '') + ' ' + s.userAvatar;
 
     return (

@@ -9,6 +9,7 @@ import Settings from './components/Settings/Settings';
 import Music from './components/Music/Music';
 import { Route, Routes } from 'react-router-dom';
 import { ReduxStoreType } from './redux/redux-store';
+import DialogsContainer from './components/Messages/DialogsContainer';
 
 type AppPropsType = {
     store: ReduxStoreType
@@ -16,23 +17,14 @@ type AppPropsType = {
 
 const App: React.FC<AppPropsType> = ({store}) => {
 
-    const state = store.getState();
-
     return (
         <div className="app-wrapper">
             <Header />
             <Nav />
             <div className="app-wrapper-content">
                 <Routes>
-                    <Route path={'/profile'} element={
-                        <Profile
-                            posts={state.profilePage.posts}
-                            newPostText={state.profilePage.newPostText}
-                            dispatch={store.dispatch.bind(store)} />
-                    } />
-                    <Route path={'/messages/*'} element={
-                        <Dialogs store={store} />
-                    } />
+                    <Route path={'/profile'} element={<Profile store={store} />} />
+                    <Route path={'/messages/*'} element={<DialogsContainer store={store} />} />
                     <Route path={'/news'} element={<News />} />
                     <Route path={'/music'} element={<Music />} />
                     <Route path={'/settings'} element={<Settings />} />
