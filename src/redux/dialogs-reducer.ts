@@ -1,10 +1,10 @@
 import { v1 } from 'uuid';
-import { DialogsPageType, MessagesType } from './store';
+import { DialogsPageType, DialogsType, MessagesType } from './store';
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
-const initialState: DialogsPageType = {
+const initialState = {
     dialogs: [
         {id: v1(), name: 'Dimych', avatar: ''},
         {id: v1(), name: 'Andrey', avatar: ''},
@@ -12,16 +12,19 @@ const initialState: DialogsPageType = {
         {id: v1(), name: 'Sasha', avatar: ''},
         {id: v1(), name: 'Viktor', avatar: ''},
         {id: v1(), name: 'Valera', avatar: ''},
-    ],
+    ] as DialogsType[],
     messages: [
         {id: v1(), message: 'Hi'},
         {id: v1(), message: 'How you doin?'},
         {id: v1(), message: 'Yo'},
-    ],
+    ] as MessagesType[],
     newMessageText: '',
 }
 
-export const dialogsReducer = (state = initialState, action: any) => {
+export type InitialStateType = typeof initialState
+
+
+export const dialogsReducer = (state: InitialStateType = initialState, action: any): InitialStateType => {
     switch(action.type) {
         case ADD_MESSAGE:
             state.newMessageText = '';

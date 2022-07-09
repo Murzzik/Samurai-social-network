@@ -5,7 +5,7 @@ import { PostType } from '../../../redux/store';
 
 type PostsType = {
     posts: PostType[]
-    addPost: () => void
+    addPost: (newPostText: string) => void
     updateNewPostText: (newPostText: string) => void
     newPostText: string
 }
@@ -14,7 +14,7 @@ const MyPosts: React.FC<PostsType> = ({posts, updateNewPostText, newPostText, ad
     const postsElements = posts.map((post, i) => <Post key={i} message={post.message} likesCount={post.likesCount} />);
 
     const addNewPost = () => {
-        addPost();
+        addPost(newPostText);
     };
     const onPostTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const newMessageText = e.currentTarget.value;
@@ -26,7 +26,7 @@ const MyPosts: React.FC<PostsType> = ({posts, updateNewPostText, newPostText, ad
             <h3>My posts</h3>
             <div>
                 <div className={s.addMessageForm}>
-                    <textarea onChange={onPostTextChange} value={newPostText} />
+                    <textarea onChange={onPostTextChange} value={newPostText} onKeyPress={addNewPost }/>
                     <button onClick={addNewPost}>Add post</button>
                 </div>
             </div>

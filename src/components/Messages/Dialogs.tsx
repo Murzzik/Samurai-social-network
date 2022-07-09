@@ -2,13 +2,12 @@ import React, { ChangeEvent } from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import { addMessageAC, DialogsType, MessagesType, updateNewMessageTextAC } from '../../redux/store';
-import { ReduxStoreType } from '../../redux/redux-store';
+import { DialogsType, MessagesType } from '../../redux/store';
 
 export type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
-    addMessage: () => void
+    addMessage: (newMessageText: string) => void
     updateNewMessageText: (newMessageText: string) => void
     newMessageText: string
 }
@@ -21,7 +20,7 @@ const Dialogs: React.FC<DialogsPageType> = ({addMessage, updateNewMessageText, d
         <Message key={i} message={message.message} id={message.id} />);
 
     const sendMessage = () => {
-        addMessage();
+        addMessage(newMessageText);
     };
     const onMessageTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const newMessageText = e.currentTarget.value;
