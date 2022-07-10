@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import { PostType } from '../../../redux/store';
+import { PostType } from '../../../redux/profile-reducer';
 
 type PostsType = {
     posts: PostType[]
@@ -17,8 +17,7 @@ const MyPosts: React.FC<PostsType> = ({posts, updateNewPostText, newPostText, ad
         addPost(newPostText);
     };
     const onPostTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const newMessageText = e.currentTarget.value;
-        updateNewPostText(newMessageText);
+        updateNewPostText(e.currentTarget.value);
     };
 
     return (
@@ -26,7 +25,7 @@ const MyPosts: React.FC<PostsType> = ({posts, updateNewPostText, newPostText, ad
             <h3>My posts</h3>
             <div>
                 <div className={s.addMessageForm}>
-                    <textarea onChange={onPostTextChange} value={newPostText} onKeyPress={addNewPost }/>
+                    <textarea onChange={onPostTextChange} value={newPostText} />
                     <button onClick={addNewPost}>Add post</button>
                 </div>
             </div>

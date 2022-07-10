@@ -1,5 +1,4 @@
 import { v1 } from 'uuid';
-import { renderTree } from '../index';
 import { profileReducer } from './profile-reducer';
 import { dialogsReducer } from './dialogs-reducer';
 
@@ -12,21 +11,21 @@ export type DialogsType = {
     name: string
     avatar: string
 };
-export type PostType = {
+type PostType = {
     id: string
     message: string
     likesCount: number
 };
-export type DialogsPageType = {
+type DialogsPageType = {
     messages: MessagesType[]
     dialogs: DialogsType[]
     newMessageText: string
 };
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: PostType[]
     newPostText: string
 };
-export type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 };
@@ -36,7 +35,7 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
-export type ActionsTypes = ReturnType<typeof addPostAC>
+type ActionsTypes = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof updateNewMessageTextAC>
@@ -49,26 +48,26 @@ export type StoreType = {
     dispatch: (action: ActionsTypes) => void
 };
 
-export const addPostAC = (postText: string) => {
+const addPostAC = (postText: string) => {
     return {
         type: ADD_POST,
         postText: postText,
     } as const;
 };
-export const updateNewPostTextAC = (newText: string) => {
+const updateNewPostTextAC = (newText: string) => {
     return {
         type: UPDATE_NEW_POST_TEXT,
         newText: newText,
     } as const;
 };
 
-export const addMessageAC = (messageText: string) => {
+const addMessageAC = (messageText: string) => {
     return {
         type: ADD_MESSAGE,
         messageText: messageText,
     };
 };
-export const updateNewMessageTextAC = (newMessageText: string) => {
+const updateNewMessageTextAC = (newMessageText: string) => {
     return {
         type: UPDATE_NEW_MESSAGE_TEXT,
         newMessageText: newMessageText,
@@ -112,7 +111,7 @@ const store: StoreType = {
     },
     dispatch(action: any) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
-        this._state.dialogsPage =  dialogsReducer(this._state.dialogsPage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
         this._callSubscriber(this._state);
     },
 };

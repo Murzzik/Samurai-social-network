@@ -22,7 +22,7 @@
 }
 
 .addMessageForm textarea {
-    width:100%;
-    max-width:244px;
+    width: 100%;
+    max-width: 244px;
     resize: vertical;
 }

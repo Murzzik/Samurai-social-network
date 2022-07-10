@@ -2,29 +2,27 @@ import React, { ChangeEvent } from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import { DialogsType, MessagesType } from '../../redux/store';
+import { DialogsPageType } from '../../redux/dialogs-reducer';
 
-export type DialogsPageType = {
-    dialogs: DialogsType[]
-    messages: MessagesType[]
-    addMessage: (newMessageText: string) => void
+type DialogsPropsType = {
+    dialogsPage: DialogsPageType
+    newMessageText?: string
+    addMessage: () => void
     updateNewMessageText: (newMessageText: string) => void
-    newMessageText: string
 }
 
-const Dialogs: React.FC<DialogsPageType> = ({addMessage, updateNewMessageText, dialogs, messages, newMessageText}) => {
+const Dialogs: React.FC<DialogsPropsType> = ({addMessage, updateNewMessageText, newMessageText, dialogsPage}) => {
 
-    const dialogsElements = dialogs.map((dialog, i) =>
+    const dialogsElements = dialogsPage.dialogs.map((dialog, i) =>
         <DialogItem key={i} name={dialog.name} id={dialog.id} avatar={dialog.avatar} />);
-    const messagesElements = messages.map((message, i) =>
+    const messagesElements = dialogsPage.messages.map((message, i) =>
         <Message key={i} message={message.message} id={message.id} />);
 
     const sendMessage = () => {
-        addMessage(newMessageText);
+        addMessage();
     };
     const onMessageTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        const newMessageText = e.currentTarget.value;
-        updateNewMessageText(newMessageText);
+        updateNewMessageText(e.currentTarget.value);
     };
 
     return (

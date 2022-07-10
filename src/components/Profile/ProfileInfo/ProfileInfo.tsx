@@ -6,7 +6,7 @@ import main from '../../../images/main-img.jpg';
 const ProfileInfo = () => {
     return (
         <div className={s.content}>
-            <img src={main} alt=""/>
+            <img src={main} alt="" />
             <div className={cn.descriptionBlock}>ava + description</div>
         </div>
     );
