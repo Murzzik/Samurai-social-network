@@ -8,6 +8,8 @@ import Settings from './components/Settings/Settings';
 import Music from './components/Music/Music';
 import { Route, Routes } from 'react-router-dom';
 import { DialogsContainer } from './components/Messages/DialogsContainer';
+import { UsersContainer } from './components/Users/UsersContainer';
+
 
 const App: React.FC = () => {
 
@@ -19,6 +21,7 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path={'/profile'} element={<Profile />} />
                     <Route path={'/messages/*'} element={<DialogsContainer />} />
+                    <Route path={'/users'} element={<UsersContainer />} />
                     <Route path={'/news'} element={<News />} />
                     <Route path={'/music'} element={<Music />} />
                     <Route path={'/settings'} element={<Settings />} />

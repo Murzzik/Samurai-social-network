@@ -44,8 +44,8 @@ export const dialogsReducer = (state = initialState, action: ActionsType): Dialo
             const message = state.newMessageText;
             return {
                 ...state,
-                messages: [...state.messages, {id: v1(), message: message}],
                 newMessageText: '',
+                messages: [...state.messages, {id: v1(), message: message}],
             };
         }
         case UPDATE_NEW_MESSAGE_TEXT: {

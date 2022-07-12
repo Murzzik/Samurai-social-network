@@ -13,10 +13,10 @@ type DialogsPropsType = {
 
 const Dialogs: React.FC<DialogsPropsType> = ({addMessage, updateNewMessageText, newMessageText, dialogsPage}) => {
 
-    const dialogsElements = dialogsPage.dialogs.map((dialog, i) =>
-        <DialogItem key={i} name={dialog.name} id={dialog.id} avatar={dialog.avatar} />);
-    const messagesElements = dialogsPage.messages.map((message, i) =>
-        <Message key={i} message={message.message} id={message.id} />);
+    const dialogsElements = dialogsPage.dialogs.map((dialog, id) =>
+        <DialogItem key={id} name={dialog.name} id={dialog.id} avatar={dialog.avatar} />);
+    const messagesElements = dialogsPage.messages.map((message, id) =>
+        <Message key={id} message={message.message} id={message.id} />);
 
     const sendMessage = () => {
         addMessage();

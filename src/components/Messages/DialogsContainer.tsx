@@ -7,7 +7,7 @@ import { addMessageAC, DialogsPageType, updateNewMessageTextAC } from '../../red
 
 type MapStatePropsType = {
     dialogsPage: DialogsPageType
-    newMessage: string
+    newMessageText: string
 }
 type MapDispatchToProps = {
     updateNewMessageText: (newMessage: string) => void
@@ -16,7 +16,7 @@ type MapDispatchToProps = {
 
 const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
-        newMessage: state.dialogsPage.newMessageText,
+        newMessageText: state.dialogsPage.newMessageText,
         dialogsPage: state.dialogsPage,
     };
 };
