@@ -4,6 +4,7 @@ import avatar from '../../../images/user-avatar.png';
 import { MessagesType } from '../../../redux/store';
 
 const Message: React.FC<MessagesType> = ({message}) => {
+    
     return (
         <div className={s.chatWindow}>
             <img src={avatar} alt="avatar" />

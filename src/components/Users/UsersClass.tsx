@@ -1,8 +1,8 @@
 import React from 'react';
+import s from './User.module.css';
+import defaultAvatar from '../../images/avatar.jpg';
 import { UserType } from '../../redux/users-reducer';
 import axios from 'axios';
-import defaultAvatar from '../../images/avatar.jpg'
-import s from './User.module.css'
 
 type UsersType = {
     users: UserType[]
@@ -11,43 +11,49 @@ type UsersType = {
     setUsers: (users: UserType[]) => void
 }
 
-export const Users: React.FC<UsersType> = ({users, follow, unfollow, setUsers}) => {
-    if(!users.length) {
+export class Users extends React.Component<UsersType> {
+
+    constructor(users: UsersType) {
+        super(users);
         axios.get('https://social-network.samuraijs.com/api/1.0/users').then((res) => {
-            setUsers(res.data.items);
+            this.props.setUsers(res.data.items);
         });
     }
-    return (
-        <div>
-            {users.map((user, id) =>
-                <div key={id} className={s.userStyleContainer}>
+
+    render() {
+        return (
+            <div>
+                {this.props.users.map((user, id) =>
+                    <div key={id} className={s.userStyleContainer}>
                 <span>
                     <div>
-                        <img className={s.userPhoto} src={user.photos.small !== null ? user.photos.small : defaultAvatar} />
+                        <img className={s.userPhoto}
+                             src={user.photos.small !== null ? user.photos.small : defaultAvatar} />
                     </div>
                     <div>
                         {
                             user.isFriends ?
                                 <button onClick={() => {
-                                    unfollow(user.id);
+                                    this.props.unfollow(user.id);
                                 }}>Unfollow</button>
                                 :
                                 <button onClick={() => {
-                                    follow(user.id);
+                                    this.props.follow(user.id);
                                 }}>Follow</button>
                         }
                     </div>
                 </span>
-                    <span>
+                        <span>
                     <div>{user.name}</div>
                     <div>{user.status}</div>
                     <span>
-                        <div>{"user.location.country"}</div>
-                        <div>{"user.location.city"}</div>
+                        <div>{'user.location.country'}</div>
+                        <div>{'user.location.city'}</div>
                     </span>
                 </span>
-                </div>)
-            }
-        </div>
-    );
-};
+                    </div>)
+                }
+            </div>
+        );
+    }
+}

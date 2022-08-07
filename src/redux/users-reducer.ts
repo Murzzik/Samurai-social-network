@@ -11,9 +11,12 @@ export type UsersPageType = {
 export type UserType = {
     id: string
     isFriends: boolean
-    fullName: string
+    name: string
     status: string
-    photoUrl: string
+    photos: {
+        small: string,
+        large: string
+    }
     location: {
         country: string,
         city: string
@@ -21,12 +24,7 @@ export type UserType = {
 }
 
 const initialState: UsersPageType = {
-    users: [
-    //     {id: v1(), isFriends: true, photoUrl: 'https://icons-for-free.com/iconfiles/png/128/avatar-1320568024619304547.png', fullName: 'Alexander', status: 'Senior developer yay', location: {country: 'Ukraine', city: 'Kyiv'}},
-    //     {id: v1(), isFriends: true, photoUrl: 'https://icons-for-free.com/iconfiles/png/128/avatar-1320568024619304547.png', fullName: 'Denis', status: 'Give some job', location: {country: 'Ukraine', city: 'Kyiv'}},
-    //     {id: v1(), isFriends: false, photoUrl: 'https://icons-for-free.com/iconfiles/png/128/avatar-1320568024619304547.png', fullName: 'Jhonas', status: 'Graciac bueno', location: {country: 'Norway', city: 'Oslo'}},
-    //     {id: v1(), isFriends: true, photoUrl: 'https://icons-for-free.com/iconfiles/png/128/avatar-1320568024619304547.png', fullName: 'Artem', status: 'Board game masta', location: {country: 'Netherlands', city: 'Amsterdam'}},
-    ],
+    users: [],
 };
 
 type ActionsType =
