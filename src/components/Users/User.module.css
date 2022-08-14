@@ -9,6 +9,7 @@
 
 .selectedPage {
     font-weight: 700;
+    background: rgba(253, 194, 1, 0.79);
 }
 
 .pagination_block {
@@ -24,4 +25,8 @@
     border: 1px solid #656262;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.pagination:hover {
+    background: rgba(253, 194, 1, 0.79);
 }
