@@ -4,4 +4,24 @@
 
 .userPhoto {
     width: 10%;
+    border-radius: 50%;
+}
+
+.selectedPage {
+    font-weight: 700;
+}
+
+.pagination_block {
+    margin-top: 10px;
+}
+
+.pagination {
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #656262;
+    border-radius: 50%;
+    cursor: pointer;
 }
