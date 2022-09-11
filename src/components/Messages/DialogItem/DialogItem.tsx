@@ -9,14 +9,15 @@ type DialogItemType = {
     avatar: string
 }
 
-const DialogItem = (props: DialogItemType) => {
+const DialogItem: React.FC<DialogItemType> = ({ name, id }) => {
+    const navClassName = (navData: any) => (navData.isActive ? s.active : '') + ' ' + s.userAvatar;
 
     return (
         <div className={s.dialog}>
-            <NavLink to={'/messages/' + props.id}
-                     className={(navData) => (navData.isActive ? s.active : '') + ' ' + s.userAvatar}>
+            <NavLink to={'/messages/' + name}
+                     className={navClassName}>
                 <img src={avatar} alt="avatar" />
-                {props.name}
+                {name}
             </NavLink>
         </div>
     );

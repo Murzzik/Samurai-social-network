@@ -1,3 +1,15 @@
 .postsBlock {
     padding: 10px;
 }
+
+.addMessageForm {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+
+.addMessageForm textarea {
+    width:100%;
+    max-width:244px;
+    resize: vertical;
+}

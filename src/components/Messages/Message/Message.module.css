@@ -1,3 +1,14 @@
+.message {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: #0f7cd7;
+    color: #f4f4f4;
+}
+
 .chatWindow {
     display: flex;
     align-items: center;
@@ -5,13 +16,4 @@
 
 .chatWindow img {
     width: 5%;
-}
-
-.message {
-    width: 200px;
-    border: 1px solid #000;
-    border-radius: 5px;
-    padding-left: 10px;
-    background-color: #0f7cd7;
-    color: #f4f4f4;
 }
