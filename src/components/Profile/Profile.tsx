@@ -1,18 +1,23 @@
 import React from 'react';
-import MyPosts, { MyPostsType } from './MyPost/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
+import { MyPostsContainer } from './MyPost/MyPostsContainer';
+import { ProfileResponseType } from '../../redux/profile-reducer';
+import { Preloader } from '../common/Preloader/Preloader';
 
 type ProfileType = {
-    posts: MyPostsType[]
-    addPost: (postMessage: string) => void
+    profile: ProfileResponseType | null
 }
 
-const Profile: React.FC<ProfileType> = ({ posts, addPost }) => {
+const Profile: React.FC<ProfileType> = ({profile}) => {
+
+    if (!profile) {
+        return <Preloader/>
+    }
 
     return (
         <div>
-            <ProfileInfo/>
-            <MyPosts posts={posts} addPost={addPost}/>
+            <ProfileInfo profile={profile}/>
+            <MyPostsContainer />
         </div>
     );
 };

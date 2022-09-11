@@ -1,0 +1,32 @@
+.userStyleContainer {
+    margin: 20px 0 0 20px;
+}
+
+.userPhoto {
+    width: 10%;
+    border-radius: 50%;
+}
+
+.selectedPage {
+    font-weight: 700;
+    background: rgba(253, 194, 1, 0.79);
+}
+
+.pagination_block {
+    margin-top: 10px;
+}
+
+.pagination {
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #656262;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.pagination:hover {
+    background: rgba(253, 194, 1, 0.79);
+}
