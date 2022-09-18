@@ -3,6 +3,7 @@ import s from './User.module.css';
 import defaultAvatar from '../../images/avatar.jpg';
 import { UserType } from '../../redux/users-reducer';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 type UsersPresentType = {
     users: UserType[]
@@ -49,11 +50,31 @@ export const UsersPresent: React.FC<UsersPresentType> = ({users, pageSize, curre
                         {
                             user.isFriends ?
                                 <button onClick={() => {
-                                    unfollow(user.id);
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
+                                        withCredentials: true,
+                                        headers: {
+                                            "API-KEY": "ec564be2-4883-4b20-b0b6-0ca24544ea07"
+                                        }
+                                    })
+                                        .then((res) => {
+                                            if(res.data.resultCode === 0) {
+                                                unfollow(user.id);
+                                            }
+                                        });
                                 }}>Unfollow</button>
                                 :
                                 <button onClick={() => {
-                                    follow(user.id);
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
+                                        withCredentials: true,
+                                        headers: {
+                                            "API-KEY": "ec564be2-4883-4b20-b0b6-0ca24544ea07"
+                                        }
+                                    })
+                                        .then((res) => {
+                                            if(res.data.resultCode === 0) {
+                                                follow(user.id);
+                                            }
+                                        });
                                 }}>Follow</button>
                         }
                     </div>
