@@ -26,18 +26,18 @@ export const usersAPI = {
 }
 
 export const followAPI = {
-    followUser(id: string) {
+    followUser(id: number) {
         return instance.post(`follow/${id}`)
             .then(res => res.data);
     },
-    unfollowUser(id: string) {
+    unfollowUser(id: number) {
         return instance.delete(`follow/${id}`)
             .then(res => res.data);
     }
 }
 
 export const profileAPI = {
-    getUserProfile(userId: string) {
+    getUserProfile(userId: number) {
         return instance.get(`profile/${userId}`)
             .then(res => res.data);
     }

@@ -6,8 +6,8 @@ import s from './User.module.css'
 
 type UsersType = {
     users: UserType[]
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     setUsers: (users: UserType[]) => void
 }
 
