@@ -1,19 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { RootStateType } from '../../redux/redux-store';
-import axios from 'axios';
 import {
     follow,
     setCurrentPage,
-    toggleIsFetching,
     setTotalUsersCount,
     setUsers,
+    toggleIsFetching,
     unfollow,
     UserType,
 } from '../../redux/users-reducer';
 
 import { UsersPresent } from './UsersPresent';
 import { Preloader } from '../common/Preloader/Preloader';
+import { usersAPI } from '../../api/api';
 
 type UsersType = {
     users: UserType[]
@@ -39,25 +39,29 @@ type MapStateToProps = {
 
 export class UsersContainers extends React.Component<UsersType> {
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true,
-        }).then((res) => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(res.data.items);
-            this.props.setTotalUsersCount(res.data.totalCount);
-        });
+        if(!this.props.users.length) {
+            usersAPI.getUsers().then((data => {
+                this.props.setUsers(data.items);
+            }));
+        }
+
+        this.props.toggleIsFetching(true);
+        usersAPI.getPaginationStatus(this.props.currentPage, this.props.pageSize)
+            .then((data) => {
+                this.props.toggleIsFetching(false);
+                this.props.setUsers(data.items);
+                this.props.setTotalUsersCount(data.totalCount);
+            });
     };
 
     onCurrentPageChanged = (currentPage: number) => {
         this.props.setCurrentPage(currentPage);
-        this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true,
-        }).then((res) => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(res.data.items);
-        });
+        this.props.toggleIsFetching(true);
+        usersAPI.getPaginationStatus(currentPage, this.props.pageSize)
+            .then((data) => {
+                this.props.toggleIsFetching(false);
+                this.props.setUsers(data.items);
+            });
     };
 
     render() {
@@ -108,7 +112,7 @@ const mapStateToProps = (state: RootStateType): MapStateToProps => {
 //     };
 // };
 
-export const UsersContainer = connect(mapStateToProps,{
+export const UsersContainer = connect(mapStateToProps, {
     follow,
     unfollow,
     setUsers,

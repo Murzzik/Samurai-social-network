@@ -27,7 +27,7 @@ export const Users: React.FC<UsersType> = ({users, follow, unfollow, setUsers}) 
                     </div>
                     <div>
                         {
-                            user.isFriends ?
+                            user.followed ?
                                 <button onClick={() => {
                                     unfollow(user.id);
                                 }}>Unfollow</button>

@@ -3,7 +3,7 @@ import s from './User.module.css';
 import defaultAvatar from '../../images/avatar.jpg';
 import { UserType } from '../../redux/users-reducer';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
+import { followAPI } from '../../api/api';
 
 type UsersPresentType = {
     users: UserType[]
@@ -34,7 +34,7 @@ export const UsersPresent: React.FC<UsersPresentType> = ({users, pageSize, curre
         <div>
             <div>
                 <div className={s.pagination_block}>
-                    {slicedPages.map(page => <span
+                    {slicedPages.map((page, id) => <span key={id}
                         className={`${s.pagination} ${currentPage === page && s.selectedPage}`}
                         onClick={() => onCurrentPageChanged(page)}>{page}</span>)}
                 </div>
@@ -48,30 +48,18 @@ export const UsersPresent: React.FC<UsersPresentType> = ({users, pageSize, curre
                     </div>
                     <div>
                         {
-                            user.isFriends ?
+                            user.followed ?
                                 <button onClick={() => {
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {
-                                        withCredentials: true,
-                                        headers: {
-                                            "API-KEY": "ec564be2-4883-4b20-b0b6-0ca24544ea07"
-                                        }
-                                    })
-                                        .then((res) => {
-                                            if(res.data.resultCode === 0) {
+                                    followAPI.unfollowUser(user.id).then((data) => {
+                                            if(data.resultCode === 0) {
                                                 unfollow(user.id);
                                             }
                                         });
                                 }}>Unfollow</button>
                                 :
                                 <button onClick={() => {
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, {}, {
-                                        withCredentials: true,
-                                        headers: {
-                                            "API-KEY": "ec564be2-4883-4b20-b0b6-0ca24544ea07"
-                                        }
-                                    })
-                                        .then((res) => {
-                                            if(res.data.resultCode === 0) {
+                                    followAPI.followUser(user.id).then((data) => {
+                                            if(data.resultCode === 0) {
                                                 follow(user.id);
                                             }
                                         });

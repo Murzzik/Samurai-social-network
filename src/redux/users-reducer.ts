@@ -15,7 +15,7 @@ export type UsersPageType = {
 
 export type UserType = {
     id: string
-    isFriends: boolean
+    followed: boolean
     name: string
     status: string
     photos: {
@@ -32,7 +32,7 @@ const initialState: UsersPageType = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage: 2,
+    currentPage: 1,
     isFetching: false,
 };
 
@@ -51,7 +51,7 @@ export const usersReducer = (state = initialState, action: ActionsType): UsersPa
                 ...state,
                 users: state.users.map(user => {
                     if(user.id === action.userID) {
-                        return {...user, isFriends: true}
+                        return {...user, followed: true}
                     }
                     return user
                 })
@@ -62,7 +62,7 @@ export const usersReducer = (state = initialState, action: ActionsType): UsersPa
                 ...state,
                 users: state.users.map(user => {
                     if(user.id === action.userID) {
-                        return {...user, isFriends: false}
+                        return {...user, followed: false}
                     }
                     return user
                 })
