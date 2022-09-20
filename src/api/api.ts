@@ -15,13 +15,9 @@ export const authAPI = {
 }
 
 export const usersAPI = {
-    getPaginationStatus(currentPage: number, pageSize: number) {
+    getUsers(currentPage: number, pageSize: number) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(res => res.data);
-    },
-    getUsers() {
-        return instance.get(`users`)
-            .then(res => res.data)
     }
 }
 
