@@ -1,10 +1,9 @@
 import React from 'react';
 import { Header } from './Header';
-import axios from 'axios';
 import { AuthResponseType, setUserData } from '../../redux/auth-reducer';
 import { connect } from 'react-redux';
 import { RootStateType } from '../../redux/redux-store';
-import { authAPI } from '../../api/api';
+import { usersAPI } from '../../api/api';
 
 type MapStateToPropsType = {
     isAuth: boolean
@@ -17,16 +16,15 @@ type MapDispatchToPropsType = {
 
 type HeaderContainerType = MapStateToPropsType & MapDispatchToPropsType
 
-
 class HeaderContainer extends React.Component<HeaderContainerType, AuthResponseType> {
     componentDidMount() {
-        authAPI.auth()
+        usersAPI.authME()
             .then((data) => {
                 if(data.resultCode === 0) {
-                    let {id, email, login} = data.data
-                    this.props.setUserData(id, email, login)
+                    let {id, email, login} = data.data;
+                    this.props.setUserData(id, email, login);
                 }
-        });
+            });
     };
 
     render() {
@@ -37,9 +35,9 @@ class HeaderContainer extends React.Component<HeaderContainerType, AuthResponseT
 const mapStateToProps = (state: RootStateType): MapStateToPropsType => {
     return {
         isAuth: state.auth.isAuth,
-        login: state.auth.login
-    }
-}
+        login: state.auth.login,
+    };
+};
 
 export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, RootStateType>
 (mapStateToProps, {setUserData})(HeaderContainer);

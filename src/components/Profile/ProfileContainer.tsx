@@ -1,13 +1,11 @@
 import React from 'react';
 import Profile from './Profile';
-import axios from 'axios';
 import { connect } from 'react-redux';
-import { ProfilePageType, setUserProfile } from '../../redux/profile-reducer';
+import { ProfilePageType, ProfileResponseType, setUserProfile } from '../../redux/profile-reducer';
 import { RootStateType } from '../../redux/redux-store';
-import { ProfileResponseType } from '../../redux/profile-reducer';
 import { withRouter } from './ComponentWithRouterProps';
-import {RouteComponentProps} from "@reach/router";
-import { profileAPI } from '../../api/api';
+import { RouteComponentProps } from '@reach/router';
+import { usersAPI } from '../../api/api';
 
 type PathParamsType = {
     router: any
@@ -30,7 +28,7 @@ class ProfileContainer extends React.Component<ProfileContainerType, ProfilePage
         if (!userId) {
             userId = 2
         }
-        profileAPI.getUserProfile(userId).then((data) => {
+        usersAPI.getUserProfile(userId).then((data) => {
             this.props.setUserProfile(data)
         });
     }
