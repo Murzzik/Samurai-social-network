@@ -6,10 +6,9 @@ import { NavLink } from 'react-router-dom';
 type HeaderType = {
     isAuth: boolean
     login: string | null
-    setUserData: (id: number, email: string, login: string) => void
 }
 
-export const Header: React.FC<HeaderType> = ({isAuth, login, setUserData}) => {
+export const Header: React.FC<HeaderType> = ({isAuth, login}) => {
     return (
         <header className={s.header}>
             <img src={logo} alt="Omega" />

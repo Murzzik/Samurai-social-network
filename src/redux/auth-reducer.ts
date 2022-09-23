@@ -1,3 +1,6 @@
+import { Dispatch } from 'redux';
+import { usersAPI } from '../api/api';
+
 const SET_USER_DATA = 'SET-USER-DATA';
 
 export type AuthDataType = {
@@ -47,3 +50,14 @@ export const setUserData = (id: number, email: string, login: string) => (
         data: {id, email, login}
     }
 ) as const;
+
+export const authorizeME= () => (dispatch: Dispatch) => {
+    usersAPI.authME()
+        .then((data) => {
+            if(data.resultCode === 0) {
+                let {id, email, login} = data.data;
+                dispatch(setUserData(id, email, login));
+            }
+        });
+}
+

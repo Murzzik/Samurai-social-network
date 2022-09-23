@@ -24,7 +24,7 @@ export const UsersPresent: React.FC<UsersPresentType> = ({
                                                              onCurrentPageChanged,
                                                              unfollowUsers,
                                                              followingInProgress,
-                                                             followUsers
+                                                             followUsers,
                                                          }) => {
     const totalPagesCount = Math.ceil(totalUsersCount / pageSize);
 
@@ -59,11 +59,13 @@ export const UsersPresent: React.FC<UsersPresentType> = ({
                     <div>
                         {
                             user.followed ?
-                                <button disabled={followingInProgress.some(id => id === user.id)} onClick={() =>
-                                {unfollowUsers(user.id)}}>Unfollow</button>
+                                <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
+                                    unfollowUsers(user.id);
+                                }}>Unfollow</button>
                                 :
-                                <button disabled={followingInProgress.some(id => id === user.id)} onClick={() =>
-                                {followUsers(user.id)}}>Follow</button>
+                                <button disabled={followingInProgress.some(id => id === user.id)} onClick={() => {
+                                    followUsers(user.id);
+                                }}>Follow</button>
                         }
                     </div>
                 </span>
