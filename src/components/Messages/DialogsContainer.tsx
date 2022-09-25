@@ -8,6 +8,7 @@ import { addMessageAC, DialogsPageType, updateNewMessageTextAC } from '../../red
 type MapStatePropsType = {
     dialogsPage: DialogsPageType
     newMessageText: string
+    isAuth: boolean
 }
 type MapDispatchToProps = {
     updateNewMessageText: (newMessage: string) => void
@@ -18,6 +19,7 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
         newMessageText: state.dialogsPage.newMessageText,
         dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
     };
 };
 
