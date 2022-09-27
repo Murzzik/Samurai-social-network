@@ -52,7 +52,7 @@ export const UsersPresent: React.FC<UsersPresentType> = ({
                     <div key={id} className={s.userStyleContainer}>
                 <span>
                     <div>
-                        <NavLink to={'/profile/' + user.id} target="_blank"><img className={s.userPhoto}
+                        <NavLink to={`/profile/${user.id}`} target="_blank"><img className={s.userPhoto}
                                                                                  src={user.photos.small !== null ? user.photos.small : defaultAvatar}
                                                                                  alt="User avatar photo" /></NavLink>
                     </div>

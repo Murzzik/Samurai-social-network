@@ -1,14 +1,14 @@
-import React from 'react';
+import { ComponentType } from 'react';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
+import { compose, Dispatch } from 'redux';
 import { RootStateType } from '../../redux/redux-store';
 import { addMessageAC, DialogsPageType, updateNewMessageTextAC } from '../../redux/dialogs-reducer';
+import { withAuthRedirect } from '../hoc/withAuthRedirect';
 
 type MapStatePropsType = {
     dialogsPage: DialogsPageType
     newMessageText: string
-    isAuth: boolean
 }
 type MapDispatchToProps = {
     updateNewMessageText: (newMessage: string) => void
@@ -19,7 +19,6 @@ const mapStateToProps = (state: RootStateType): MapStatePropsType => {
     return {
         newMessageText: state.dialogsPage.newMessageText,
         dialogsPage: state.dialogsPage,
-        isAuth: state.auth.isAuth
     };
 };
 
@@ -34,4 +33,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
     };
 };
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+export const DialogsContainer = compose<ComponentType>(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(Dialogs);

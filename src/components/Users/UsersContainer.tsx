@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { connect } from 'react-redux';
 import { RootStateType } from '../../redux/redux-store';
 import { followUsers, getUsers, unfollowUsers, UserType } from '../../redux/users-reducer';
 
 import { UsersPresent } from './UsersPresent';
 import { Preloader } from '../common/Preloader/Preloader';
+import { withAuthRedirect } from '../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 type UsersType = {
     users: UserType[]
@@ -27,7 +29,7 @@ type MapStateToProps = {
     followingInProgress: number[]
 }
 
-export class UsersContainers extends React.Component<UsersType> {
+export class UserContainer extends React.Component<UsersType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     };
@@ -63,6 +65,4 @@ const mapStateToProps = (state: RootStateType): MapStateToProps => {
     };
 };
 
-export const UsersContainer = connect(mapStateToProps, {
-    getUsers, followUsers, unfollowUsers
-})(UsersContainers);
+export default compose<ComponentType>(connect(mapStateToProps, {getUsers, followUsers, unfollowUsers}), withAuthRedirect)(UserContainer)
